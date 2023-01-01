@@ -1,21 +1,24 @@
-//
-//  ContentView.swift
-//  Tca_tutorial
-//
-//  Created by ymurao on 2023/01/01.
-//
-
 import SwiftUI
+import ComposableArchitecture
 
 struct ContentView: View {
+    private let readMe = "Single Counter with TCA"
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Form {
+            Section(header: Text(readMe)) {
+                CounterView(
+                    store: Store(
+                        initialState: CounterState(),
+                        reducer: counterReducer,
+                        environment: CounterEnvironment()
+                    ),
+                    label: "Counter"
+                )
+                .buttonStyle(.borderless)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
-        .padding()
+        .navigationTitle("SimpleCounter")
     }
 }
 
